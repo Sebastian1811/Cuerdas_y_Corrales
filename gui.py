@@ -5,7 +5,7 @@ import sys, pygame
 pygame.init()
 size = width, height = 800, 800
 screen = pygame.display.set_mode((size))
-pygame.display.set_caption("Cuerdas o Corrales")
+pygame.display.set_caption("Cuerdas o Corrales xd")
 
 
 
