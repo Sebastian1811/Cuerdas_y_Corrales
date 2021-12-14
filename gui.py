@@ -11,9 +11,35 @@ class gui:
     robot = pygame.image.load("img/robot.png")
     robot = pygame.transform.scale(robot,(100,100))
     count = 1
+    cuadros = None
     tablero = None
+    coordenadas = []
+    matrizJuego= []
+    puntajes = []
+
     def setTablero(self,filas,columnas):
         self.tablero = juego(filas,columnas,10)
+        self.cuadros = self.tablero.tablero.cuadradosPosibles
+        self.setMatrizJuego(7,7)
+        
+        for i in range(filas):
+            for j in range(columnas):
+                """print(self.cuadros[i][j].LineaArriba)
+                print(self.cuadros[i][j].Puntaje)
+                print(self.cuadros[i][j].LineaAbajo)"""
+                self.coordenadas.append(self.cuadros[i][j].CoordenadaInicial)
+                self.puntajes.append(self.cuadros[i][j].Puntaje)
+
+                print()
+        print(self.matrizJuego)    
+
+    def setMatrizJuego(self,filas,columnas):
+        ancho = []
+        for i in range(filas): # rellenar una matriz #filas * #columnas de cuadros
+            for j in range(columnas):
+                ancho.append(0)
+            self.matrizJuego.append(ancho)
+            ancho = []  
 
     def interfaz(self):
         while True:
@@ -27,3 +53,8 @@ class gui:
             self.screen.blit(self.robot,(750,780))
             pygame.display.update()
 
+gu = gui()
+
+gu.setTablero(4,4)
+print(gu.coordenadas)
+print(gu.puntajes)

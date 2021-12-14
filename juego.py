@@ -35,7 +35,7 @@ class juego:
 
     def minimax(self, tableroActual, PosiblesJugadas, profundidadarbol, min_max):
         
-        if min_max is True:
+        if min_max :
             valorNodo = (-1000000, None)
         else:
             valorNodo = (1000000, None)
@@ -56,7 +56,7 @@ class juego:
             PosiblesJugadas.appendleft(jugada)
 
             heuristica = self.funcionHeuristica(tableroActualCopia)
-            if min_max is True:
+            if min_max :
                 if heuristica >= tableroActualCopia.valorMin:
                     return (heuristica, jugada)
                 else:
@@ -71,7 +71,7 @@ class juego:
             proximoMovimiento = self.minimax(tableroActualCopia, PosiblesJugadasCopy, profundidadarbol - 1, not min_max)
 
             
-            if min_max is True:
+            if min_max :
                 
                 if proximoMovimiento[0] > valorNodo[0]:
                     valorNodo = (proximoMovimiento[0], jugada)
