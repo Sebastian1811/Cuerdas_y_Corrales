@@ -11,14 +11,18 @@ class gui:
     robot = pygame.image.load("img/robot.png")
     robot = pygame.transform.scale(robot,(100,100))
     count = 1
+    tablero = None
     def setTablero(self,filas,columnas):
-        tablero = juego(filas,columnas,10)
+        self.tablero = juego(filas,columnas,10)
 
     def interfaz(self):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     sys.exit()
+            if self.count:
+                self.setTablero(5,5)
+                self.count+=1        
             self.screen.blit(self.morty,(750,650))
             self.screen.blit(self.robot,(750,780))
             pygame.display.update()
