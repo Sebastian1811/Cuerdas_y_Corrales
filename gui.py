@@ -38,14 +38,8 @@ class gui:
         
         for i in range(filas):
             for j in range(columnas):
-                #print(self.cuadros[i][j].LineaArriba)
-                #print(self.cuadros[i][j].Puntaje)
-                #print(self.cuadros[i][j].LineaAbajo)
                 self.coordenadas.append(self.cuadros[i][j].CoordenadaInicial)
                 self.puntajes.append(self.cuadros[i][j].Puntaje)
-
-                print()
-        print(self.matrizJuego)
 
     def setMatrizJuego(self,filas,columnas):
         ancho = []
@@ -57,8 +51,6 @@ class gui:
          
 
     def pintarmapa(self):
-
-        #print(len(self.matrizJuego))
         x=0
         y=0
         F=130
@@ -94,7 +86,6 @@ class gui:
                 m+=1
             x=0
             y+=96
-        #print(self.cuadros[2][2].Puntaje)
 
     def interfaz(self):
         self.pintarmapa()
