@@ -9,8 +9,14 @@ class gui:
     size = width, height = 1000, 678
     white = 255, 255, 255
     red = 255, 0 , 0
+    input_box = pygame.Rect(700, 200, 140, 32)
+    coloron =pygame.Color('lightskyblue3')
+    coloroff = pygame.Color('gray15')
+    color = coloroff
+    active = False
     screen = pygame.display.set_mode((size))
     Fuente = pygame.font.Font(None,80)
+    font = pygame.font.Font(None,25)
     pygame.display.set_caption("Cuerdas o Corrales ")
     morty = pygame.image.load("img/morty.png")
     morty = pygame.transform.scale(morty, (100, 100))
@@ -24,7 +30,7 @@ class gui:
     coordenadas = []
     matrizJuego= []
     puntajes = []
-
+    userText = ''
     def setTablero(self,filas,columnas):
         self.tablero = juego(filas,columnas,10)
         self.cuadros = self.tablero.tablero.cuadradosPosibles
@@ -90,18 +96,33 @@ class gui:
             y+=96
         #print(self.cuadros[2][2].Puntaje)
 
-          
-
-
     def interfaz(self):
         self.pintarmapa()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     sys.exit()
-            if self.count:
-                #self.setTablero(5,5)
-                self.count+=1      
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.input_box.collidepoint(event.pos):
+                        self.active = True    
+                    else:
+                        self.active =  False 
+                if event.type == pygame.KEYDOWN:
+                # If the user clicked on the input_box rect.
+                    if self.active:
+                        if event.key==pygame.K_BACKSPACE:
+                        # Toggle the active variable.
+                            self.userText = self.userText[:-1]
+                        else:
+                            self.userText += event.unicode  
+            if self.active:
+                self.color = self.coloron
+            else:
+                self.color = self.coloroff    
+            pygame.draw.rect(self.screen,self.color,self.input_box)   
+            text_surface = self.font.render(self.userText, True, (255,255,255))
+            self.screen.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))
+            self.input_box.w = max(100,text_surface.get_width()+ 10)
             self.screen.blit(self.morty,(880,150))
             self.screen.blit(self.robot,(880,250))
             pygame.display.flip()
