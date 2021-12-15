@@ -106,6 +106,10 @@ class gui:
                             self.userText = self.userText[:-1]
                         else:
                             self.userText += event.unicode  
+                        if event.key == pygame.K_RETURN:
+                            self.userText = self.userText[:-1]
+                            self.active = 0
+
             if self.active:
                 self.color = self.coloron
             else:
@@ -117,6 +121,8 @@ class gui:
             self.screen.blit(self.morty,(880,150))
             self.screen.blit(self.robot,(880,250))
             pygame.display.flip()
+
+
 
 gu = gui()
 gu.setTablero(4,4)
