@@ -1,9 +1,9 @@
 from tablero import *
 
-def jugar(tablero):
+def jugar(tablero,minplay):
     while True:
         try:
-            integers = list(map(int,input("Que puntos desea unir (Primero columna, luego fila):").split()))
+            integers = list(map(int,minplay.split()))
             if integers == 0:
                 return False
             coordenadas = ((integers[0], integers[1]), (integers[2], integers[3]))
@@ -11,9 +11,10 @@ def jugar(tablero):
             jugadaValidad = tablero.jugada(coordenadas, 0)
 
             if jugadaValidad == 0:
-                break
+                return coordenadas
+                # break
             elif jugadaValidad == -1:
-                print("coordenadas invalidas!")
+                return 0#print("coordenadas invalidas!")
         except SyntaxError:
             print("Intenta de nuevo que te equivocaste")
     return True

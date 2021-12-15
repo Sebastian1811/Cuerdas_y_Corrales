@@ -2,8 +2,10 @@ from copy import deepcopy
 import jugadorMin
 from tablero import *
 
-
 class juego:
+
+    jugadamin = 0
+    jugadamax = 0
     def __init__(self, filas, columnas, profundidadArbol):
         self.profundidadarbol = profundidadArbol
         self.tablero = Tablero(filas, columnas)
@@ -18,11 +20,13 @@ class juego:
             self.tablero.displaytablero()
 
             jugadaValida = jugadorMin.jugar(self.tablero)
-            if jugadaValida is False:
+            if not jugadaValida :
                 break
+            else:
+                self.jugadamin = jugadaValida
 
             print("\nEspera a jugador MAX \n")
-            self.jugadorMax()
+            self.jugadamax = self.jugadorMax()
         self.ganador()
 
     def jugadorMax(self):
@@ -32,6 +36,7 @@ class juego:
 
         coordenadas = self.minimax(tableroCopia, PosiblesJugadas, self.profundidadarbol, True)
         self.tablero.jugada(coordenadas[1], 1)
+        return coordenadas[1]
 
     def minimax(self, tableroActual, PosiblesJugadas, profundidadarbol, min_max):
         
