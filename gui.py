@@ -86,6 +86,7 @@ class gui:
                         pygame.draw.rect(self.screen,self.red,[x,y,95,95],0)
                         x+=96
                         numero = self.Fuente.render(str(self.cuadros[m][d].Puntaje),True,(255,200,200))
+                        print(self.cuadros[m][d].Puntaje)
                         self.screen.blit(numero,[F,C])
                         d += 1
                         F+=192
@@ -110,8 +111,8 @@ class gui:
                 #print("jugada invalida")
                 return 0
             else:
-                #self.screen.fill((0,0,0))
-                #self.pintarmapa()
+                self.screen.fill((0,0,0))
+                self.pintarmapa()
                 self.jugadaMin  = jugadaValida
                 self.convertirCoordenadas()
                 print(jugadaValida)
