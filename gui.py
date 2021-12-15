@@ -10,6 +10,7 @@ class gui:
     white = 255, 255, 255
     red = 255, 0 , 0
     screen = pygame.display.set_mode((size))
+    Fuente = pygame.font.Font(None,80)
     pygame.display.set_caption("Cuerdas o Corrales ")
     morty = pygame.image.load("img/morty.png")
     morty = pygame.transform.scale(morty, (100, 100))
@@ -72,13 +73,16 @@ class gui:
                         pygame.draw.rect(self.screen,self.white,[x,y,95,95],0)
                         x+=96
                     else:
-                        """F=96
-                        C=96
-                        for i in range(0,2):
+                        F=x
+                        C=y
+                        for i in range(0,3):
+                            for j in range(0,3):  
+                              numero = self.Fuente.render(str(self.cuadros[i][j].Puntaje),True,(255,200,200)) 
+                              self.screen.blit(numero,(F,C))
+                              print(len(str(self.cuadros[i][j].Puntaje)))
+                              F=F+96
                             C=C+96
-                            for j in range(0,2):
-                              self.screen.blit(str(self.cuadros[i][j].Puntaje),(F,C))
-                              F=F+96  """ 
+                            
                         pygame.draw.rect(self.screen,self.red,[x,y,95,95],0)
                         x+=96                
             x=0
