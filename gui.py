@@ -6,7 +6,7 @@ from juego import *
 
 class gui:
     pygame.init()
-    size = width, height = 678, 1000
+    size = width, height = 1000, 678
     white = 255, 255, 255
     red = 255, 0 , 0
     screen = pygame.display.set_mode((size))
@@ -102,8 +102,8 @@ class gui:
             if self.count:
                 #self.setTablero(5,5)
                 self.count+=1      
-            self.screen.blit(self.morty,(580,720))
-            self.screen.blit(self.robot,(580,880))
+            self.screen.blit(self.morty,(880,150))
+            self.screen.blit(self.robot,(880,250))
             pygame.display.flip()
 
 
