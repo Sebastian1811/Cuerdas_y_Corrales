@@ -9,7 +9,7 @@ class gui:
     size = width, height = 1000, 678
     white = 255, 255, 255
     red = 255, 0 , 0
-    input_box = pygame.Rect(700, 200, 140, 32)
+    input_box = pygame.Rect(840, 380, 140, 32)
     coloron =pygame.Color('lightskyblue3')
     coloroff = pygame.Color('gray15')
     color = coloroff
@@ -106,8 +106,8 @@ class gui:
             if not jugadaValida :
                 self.pausa = 1
                 self.detenido = 1
-                self.warning = self.fuente.render("JUGADA INVALIDA",0,(255,0,0))
-                self.screen.blit(self.warning,(680, 400))
+                self.warning = self.fuente.render("¡¡¡JUGADA INVALIDA!!!",0,(255,0,0))
+                self.screen.blit(self.warning,(700, 440))
                 #print("jugada invalida")
                 return 0
             else:
@@ -192,8 +192,8 @@ class gui:
             text_surface = self.font.render(self.userText, True, (255,255,255))
             self.screen.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))
             self.input_box.w = max(100,text_surface.get_width()+ 10)
-            self.screen.blit(self.morty,(880,400))
-            self.screen.blit(self.robot,(880,250))
+            self.screen.blit(self.morty,(880,250))
+            self.screen.blit(self.robot,(880,100))
             self.jugar()
             
             pygame.display.flip()
@@ -202,5 +202,5 @@ class gui:
 
 
 gu = gui()
-gu.setTablero(4,4)
+gu.setTablero(3,3)
 gu.interfaz()
