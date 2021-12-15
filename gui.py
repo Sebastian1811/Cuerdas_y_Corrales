@@ -118,7 +118,7 @@ class gui:
             self.screen.blit(self.robot,(880,250))
             pygame.display.flip()
 
-
+#ayudaaaaaaaaaaaaaa
 
 gu = gui()
 gu.setTablero(4,4)
