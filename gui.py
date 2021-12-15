@@ -108,6 +108,7 @@ class gui:
                             self.userText += event.unicode  
                         if event.key == pygame.K_RETURN:
                             self.userText = self.userText[:-1]
+                            print(self.userText)
                             self.active = 0
 
             if self.active:
