@@ -119,7 +119,7 @@ class gui:
             text_surface = self.font.render(self.userText, True, (255,255,255))
             self.screen.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))
             self.input_box.w = max(100,text_surface.get_width()+ 10)
-            self.screen.blit(self.morty,(880,150))
+            self.screen.blit(self.morty,(880,400))
             self.screen.blit(self.robot,(880,250))
             pygame.display.flip()
 
