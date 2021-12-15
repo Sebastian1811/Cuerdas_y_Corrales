@@ -55,6 +55,8 @@ class gui:
         print(len(self.matrizJuego))
         x=0
         y=0
+        F=96
+        C=96
         for i in range(len(self.matrizJuego)):
             a=i+1
             if (a % 2) !=0:
@@ -73,20 +75,21 @@ class gui:
                         pygame.draw.rect(self.screen,self.white,[x,y,95,95],0)
                         x+=96
                     else:
-                        F=x
-                        C=y
-                        for i in range(0,3):
-                            for j in range(0,3):  
-                              numero = self.Fuente.render(str(self.cuadros[i][j].Puntaje),True,(255,200,200)) 
-                              self.screen.blit(numero,(F,C))
-                              print(len(str(self.cuadros[i][j].Puntaje)))
-                              F=F+96
-                            C=C+96
+                        for i in range(0,3): 
+                            for j in range(0,3):
+                                numero = self.Fuente.render(str(self.cuadros[i][j].Puntaje),True,(255,200,200)) 
+                                self.screen.blit(numero,(F,C))
+                                F+=192
+                            F=96 
+                            C+=192
                             
                         pygame.draw.rect(self.screen,self.red,[x,y,95,95],0)
-                        x+=96                
+                        x+=96 
+                        F=96 
+                        C=96                         
             x=0
             y+=96
+        print(self.cuadros[2][2].Puntaje)
 
 
     def interfaz(self):
