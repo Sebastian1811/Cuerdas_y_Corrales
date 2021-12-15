@@ -32,9 +32,6 @@ class gui:
         
         for i in range(filas):
             for j in range(columnas):
-                #print(self.cuadros[i][j].LineaArriba)
-                #print(self.cuadros[i][j].Puntaje)
-                #print(self.cuadros[i][j].LineaAbajo)
                 self.coordenadas.append(self.cuadros[i][j].CoordenadaInicial)
                 self.puntajes.append(self.cuadros[i][j].Puntaje)
 
@@ -51,8 +48,6 @@ class gui:
          
 
     def pintarmapa(self):
-
-        #print(len(self.matrizJuego))
         x=0
         y=0
         F=130
@@ -88,7 +83,6 @@ class gui:
                 m+=1
             x=0
             y+=96
-        #print(self.cuadros[2][2].Puntaje)
 
           
 
@@ -100,13 +94,10 @@ class gui:
                 if event.type == pygame.QUIT: 
                     sys.exit()
             if self.count:
-                #self.setTablero(5,5)
                 self.count+=1      
             self.screen.blit(self.morty,(880,150))
             self.screen.blit(self.robot,(880,250))
             pygame.display.flip()
-
-
 
 gu = gui()
 gu.setTablero(4,4)
