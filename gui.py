@@ -111,16 +111,3 @@ class gui:
 gu = gui()
 gu.setTablero(4,4)
 gu.interfaz()
-"""print(gu.coordenadas)
-print(gu.puntajes)"""
-
-
-
-"""for fila in range(len(self.matrizJuego)):
-            for  columna in range(len(self.matrizJuego[fila])):
-                if self.matrizJuego[fila][columna] == 0:
-                    pygame.draw.rect(self.screen,self.white,[x,y,95,95],0)
-                    x+=96
-                if self.matrizJuego[fila+1][columna+1] == 0:
-                    self.screen.blit(self.portal,[x+10,y+10])
-                    x+=96""" 
