@@ -126,6 +126,7 @@ class gui:
             self.screen.blit(self.morty,(880,150))
             self.screen.blit(self.robot,(880,250))
             pygame.display.flip()
+            
 
 
 
