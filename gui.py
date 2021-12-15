@@ -32,9 +32,9 @@ class gui:
         
         for i in range(filas):
             for j in range(columnas):
-                print(self.cuadros[i][j].LineaArriba)
-                print(self.cuadros[i][j].Puntaje)
-                print(self.cuadros[i][j].LineaAbajo)
+                #print(self.cuadros[i][j].LineaArriba)
+                #print(self.cuadros[i][j].Puntaje)
+                #print(self.cuadros[i][j].LineaAbajo)
                 self.coordenadas.append(self.cuadros[i][j].CoordenadaInicial)
                 self.puntajes.append(self.cuadros[i][j].Puntaje)
 
@@ -52,44 +52,45 @@ class gui:
 
     def pintarmapa(self):
 
-        print(len(self.matrizJuego))
+        #print(len(self.matrizJuego))
         x=0
         y=0
-        F=96
-        C=96
+        F=130
+        C=120
         for i in range(len(self.matrizJuego)):
             a=i+1
+            m=0
             if (a % 2) !=0:
                 for j in range(len(self.matrizJuego)):
                     b = j+1
                     if(b % 2) !=0:
-                        self.screen.blit(self.portal,[x+10,y+10])
+                        self.screen.blit(self.portal,[x+5,y+5])
                         x+=96
                     else:
                         pygame.draw.rect(self.screen,self.white,[x,y,95,95],0)
                         x+=96 
             else:
-                for z in range(len(self.matrizJuego)):
-                    c = z+1
+                d=0
+                for k in range(len(self.matrizJuego)):
+                    c = k+1
                     if(c % 2) !=0:
                         pygame.draw.rect(self.screen,self.white,[x,y,95,95],0)
                         x+=96
                     else:
-                        for i in range(0,3): 
-                            for j in range(0,3):
-                                numero = self.Fuente.render(str(self.cuadros[i][j].Puntaje),True,(255,200,200)) 
-                                self.screen.blit(numero,(F,C))
-                                F+=192
-                            F=96 
-                            C+=192
-                            
                         pygame.draw.rect(self.screen,self.red,[x,y,95,95],0)
-                        x+=96 
-                        F=96 
-                        C=96                         
+                        x+=96
+                        numero = self.Fuente.render(str(self.cuadros[m][d].Puntaje),True,(255,200,200))
+                        self.screen.blit(numero,[F,C])
+                        d += 1
+                        F+=192
+                C+=192
+                F=130   
+                m+=1
             x=0
             y+=96
-        print(self.cuadros[2][2].Puntaje)
+        #print(self.cuadros[2][2].Puntaje)
+
+          
 
 
     def interfaz(self):
