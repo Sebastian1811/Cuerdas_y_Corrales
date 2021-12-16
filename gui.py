@@ -25,141 +25,183 @@ class gui:
     robot = pygame.transform.scale(robot,(100,100))
     portal = pygame.image.load("img/portal.png")
     portal = pygame.transform.scale(portal,(80,80))
+    player1 = pygame.image.load("img/player1.png")
+    player1 = pygame.transform.scale(player1, (90, 90))
+    player2 = pygame.image.load("img/player2.jpg")
+    player2 = pygame.transform.scale(player2, (90, 90))
     count = 1
     cuadros = None
     tablero = None
     coordenadas = []
-    matrizJuego= []
+    gameMatrix = [[6,0,6,0,6,0,6],[0,-1,0,-1,0,-1,0],
+                 [6,0,6,0,6,0,6],[0,-1,0,-1,0,-1,0],
+                 [6,0,6,0,6,0,6],[0,-1,0,-1,0,-1,0],[6,0,6,0,6,0,6]]
     puntajes = []
+    ia_score = '0'
+    morty_score = '0'
     userText = ''
     iniciar = 0
     pausa = 1
     detenido = 0
     warning = None
-    msjWarning = ""
     jugadaMin =None
     jugadaMax = None
+
     def setTablero(self,filas,columnas):
         self.tablero = juego(filas,columnas,10)
         self.cuadros = self.tablero.tablero.cuadradosPosibles
-        self.setMatrizJuego(7,7)
-        
         for i in range(filas):
             for j in range(columnas):
                 self.coordenadas.append(self.cuadros[i][j].CoordenadaInicial)
                 self.puntajes.append(self.cuadros[i][j].Puntaje)
 
-    def setMatrizJuego(self,filas,columnas):
-        ancho = []
-        for i in range(filas): # rellenar una matriz #filas * #columnas de cuadros
-            for j in range(columnas):
-                ancho.append(0)
-            self.matrizJuego.append(ancho)
-            ancho = [] 
+    def paint(self):
+        x = 0
+        y = 0
+        x1=96
+        y1=96
+        factor = 3
+        factorY = 3
+        count = 0
+        self.setScore()
+        for i in range(7):
+            for j in range(7):
+                if self.gameMatrix[i][j] == 6:
+                    self.screen.blit(self.portal,[x+5,y+5])
+                elif self.gameMatrix[i][j] == 0:
+                    pygame.draw.rect(self.screen,self.white,[x,y,95,95])   
+                elif self.gameMatrix[i][j] <= 5 and self.gameMatrix[i][j] >=1:
+                    numero = self.Fuente.render(str(self.gameMatrix[j][i]),True,(255,200,200)) 
+                    pygame.draw.rect(self.screen,self.red,[y,x,95,95])  
+                    self.screen.blit(numero,[y1,x1])
+                    count += 1
+                    x1 = 96*factor
+                    if factor < 5:
+                        factor +=2 
+                    if count == 3:
+                        y1 =96*factorY
+                        count = 0
+                        x1 = 96
+                        factor = 3
+                        if factorY < 5:
+                            factorY +=2
+                elif self.gameMatrix[i][j] == 9:
+                    self.screen.blit(self.player1,[x+5,y+5])
+                elif self.gameMatrix[i][j] == 10:
+                    self.screen.blit(self.player2,[x+5,y+5])
+                x += 96
+            x = 0    
+            y +=96
          
-
-    def pintarmapa(self):
-        x=0
-        y=0
-        F=130
-        C=120
-        for i in range(len(self.matrizJuego)):
-            a=i+1
-            m=0
-            if (a % 2) !=0:
-                for j in range(len(self.matrizJuego)):
-                    b = j+1
-                    if(b % 2) !=0:
-                        self.screen.blit(self.portal,[x+5,y+5])
-                        x+=96
-                    else:
-                        pygame.draw.rect(self.screen,self.white,[x,y,95,95],0)
-                        x+=96 
-            else:
-                d=0
-                for k in range(len(self.matrizJuego)):
-                    c = k+1
-                    if(c % 2) !=0:
-                        pygame.draw.rect(self.screen,self.white,[x,y,95,95],0)
-                        x+=96
-                    else:
-                        pygame.draw.rect(self.screen,self.red,[x,y,95,95],0)
-                        x+=96
-                        numero = self.Fuente.render(str(self.cuadros[m][d].Puntaje),True,(255,200,200))
-                        print(self.cuadros[m][d].Puntaje)
-                        self.screen.blit(numero,[F,C])
-                        d += 1
-                        F+=192
-                C+=192
-                F=130   
-                m+=1
-            x=0
-            y+=96
+    def setScore(self):
+        count = 0
+        for i in range(7):
+            for j in range(7):
+                if self.gameMatrix[j][i] == -1:
+                    self.gameMatrix[j][i] = self.puntajes[count]
+                    count +=1           
     def jugar(self):
-        
         if self.iniciar and  not self.pausa:
-            #print("Ejemplo de jugada == x,y,x2,y2")
-            #print("presiona 0 para terminar el juego")
             self.tablero.tablero.displaytablero()
-            #print(self.tablero.tablero.PosiblesJugadas)
             jugadaValida = jugadorMin.jugar(self.tablero.tablero,self.userText)
             if not jugadaValida :
                 self.pausa = 1
                 self.detenido = 1
                 self.warning = self.fuente.render("¡¡¡JUGADA INVALIDA!!!",0,(255,0,0))
                 self.screen.blit(self.warning,(700, 440))
-                #print("jugada invalida")
                 return 0
             else:
                 self.screen.fill((0,0,0))
-                self.pintarmapa()
                 self.jugadaMin  = jugadaValida
-                self.convertirCoordenadas()
-                print(jugadaValida)
+                self.convertirCoordenadas(1)
+                self.morty_score =str(self.tablero.tablero.puntajeJugadorMin)
 
-            #print("\nEspera a jugador MAX \n")
-            
-            self.jugadamax = self.tablero.jugadorMax()
-            #print(self.jugadamax)
+            self.jugadaMax = self.tablero.jugadorMax()
+            self.convertirCoordenadas(0)
+            self.ia_score = str(self.tablero.tablero.puntajeJugadorMax)
             self.tablero.tablero.displaytablero()
             self.pausa = 1
             
-       
-    def convertirCoordenadas(self):
-        print(self.tablero.tablero.cuadradosPosibles[0][0].Puntaje)
+    def convertirCoordenadas(self,player):
         convertY2 = 0
         convertX2 = 0
         convertX =0
         convertY =0
-        if self.jugadaMin[0] == (0,0):
-            convertX = 0
-            convertY = 0
-        elif self.jugadaMin[0][1] == 0 and self.jugadaMin[0][0] !=0:
-            convertX = 0
-            convertY =self.jugadaMin[0][0]+1
+        if player:
+            if self.jugadaMin[0] == (0,0):
+                convertX = 0
+                convertY = 0
+            elif self.jugadaMin[0][1] == 0 and self.jugadaMin[0][0] !=0:
+                convertX = 0 
+                convertY = self.jugadaMin[0][0]*2
+            elif self.jugadaMin[0][1] != 0 and self.jugadaMin[0][0] ==0:
+                convertX =  (self.jugadaMin[0][1]*2 ) 
+                convertY = 0 
+            else:
+                convertY = self.jugadaMin[0][0] *2
+                convertX = self.jugadaMin[0][1] *2
+                
+            if self.jugadaMin[1] == (0,0):
+                convertX2 = 0
+                convertY2 = 0
+            elif  self.jugadaMin[1][1] == 0 and self.jugadaMin[1][0] != 0:
+                convertX2 = self.jugadaMin[1][1]*2
+                convertY2 = 0
+
+            elif self.jugadaMin[1][1] != 0 and self.jugadaMin[1][0] ==0:
+                convertX2 =  (self.jugadaMin[1][1]*2 ) 
+                convertY2 = 0 
+            else:
+                convertY2 = self.jugadaMin[1][0] *2
+                convertX2 = self.jugadaMin[1][1] *2
+            if self.Ishorizontal(convertX,convertX2):
+                self.gameMatrix[convertX][convertY+1] = 9
+            elif self.Isvertical(convertY,convertY2):
+                self.gameMatrix[convertX+1][convertY] = 9   
         else:
-            convertX =  self.jugadaMin[0][1]+1
-            convertY = self.jugadaMin[0][0]*2  
-            
-
-        if self.jugadaMin[1] == (0,0):
-            convertX2 = 0
-            convertY2 = 0
-        elif  self.jugadaMin[1][1] == 0 and self.jugadaMin[1][0] != 0:
-            convertX2 = 0
-            convertY2 = self.jugadaMin[1][0]+1
+            if self.jugadaMax[0] == (0,0):
+                convertX = 0
+                convertY = 0
+            elif self.jugadaMax[0][1] == 0 and self.jugadaMax[0][0] !=0:
+                convertX = 0
+                convertY =self.jugadaMax[0][0]*2
+            elif self.jugadaMax[0][1] != 0 and self.jugadaMax[0][0] ==0:
+                convertX =  (self.jugadaMax[0][1]*2 ) 
+                convertY = 0 
+            else:
+                convertY = self.jugadaMax[0][0] *2
+                convertX = self.jugadaMax[0][1] *2
+            if self.jugadaMax[1] == (0,0):
+                convertX2 = 0
+                convertY2 = 0
+            elif  self.jugadaMax[1][1] == 0 and self.jugadaMax[1][0] != 0:
+                convertX2 = self.jugadaMax[1][1]*2
+                convertY2 = 0
+            elif self.jugadaMax[1][1] != 0 and self.jugadaMax[1][0] ==0:
+                convertX2 =  (self.jugadaMax[1][1]*2 ) 
+                convertY2 = 0 
+            else:
+                convertY2 = self.jugadaMax[1][0] *2
+                convertX2 = self.jugadaMax[1][1] *2
+            if self.Ishorizontal(convertX,convertX2):
+                self.gameMatrix[convertX][convertY+1] = 10
+            elif self.Isvertical(convertY,convertY2):
+                self.gameMatrix[convertX+1][convertY] = 10   
+               
+    def Ishorizontal(self,x,x1):
+        if x1 - x == 0:
+            return 1
+        else: 
+            return 0    
+    def Isvertical(self,y,y1):
+        if y1 - y == 0:
+            return 1
         else:
-            convertX2 =  self.jugadaMin[1][1]+1  
-            convertY2 = self.jugadaMin[1][0]*2         
-        print(convertX,convertY,convertX2,convertY2)
-        print(self.matrizJuego)
-        print(self.matrizJuego[convertX][convertY+1])
-
-
-    def interfaz(self):
-        self.pintarmapa()
+            return 0           
         
+    def interfaz(self):
         while True:
+            self.paint()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     sys.exit()
@@ -169,10 +211,8 @@ class gui:
                     else:
                         self.active =  False 
                 if event.type == pygame.KEYDOWN:
-                # If the user clicked on the input_box rect.
                     if self.active:
                         if event.key==pygame.K_BACKSPACE:
-                        # Toggle the active variable.
                             self.userText = self.userText[:-1]
                         else:
                             self.userText += event.unicode  
@@ -181,26 +221,25 @@ class gui:
                             self.active = 0
                             self.iniciar = 1
                             self.pausa = 0
-
-
             if self.active:
                 self.color = self.coloron
             else:
                 self.color = self.coloroff    
-             
             pygame.draw.rect(self.screen,self.color,self.input_box)   
             text_surface = self.font.render(self.userText, True, (255,255,255))
+            scoreIa = self.font.render("Score: "+self.ia_score,0,(255,0,0))
+            scoremorty = self.font.render("Score: "+self.morty_score,0,(0,0,255))
+            self.screen.blit(scoreIa,(780,140))
+            self.screen.blit(scoremorty,(780,290))
+            instrucciones = self.font.render("Ejemplo de jugada == x y x2 y2",0,self.coloron)
+            self.screen.blit(instrucciones,(720, 40))
             self.screen.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))
             self.input_box.w = max(100,text_surface.get_width()+ 10)
             self.screen.blit(self.morty,(880,250))
             self.screen.blit(self.robot,(880,100))
             self.jugar()
-            
             pygame.display.flip()
             
-
-
-
 gu = gui()
 gu.setTablero(3,3)
 gu.interfaz()
