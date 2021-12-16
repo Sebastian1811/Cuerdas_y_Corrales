@@ -109,7 +109,6 @@ class gui:
                     count +=1           
     def jugar(self):
         if self.iniciar and  not self.pausa:
-            #self.tablero.tablero.displaytablero()
             jugadaValida = jugadorMin.jugar(self.tablero.tablero,self.userText)
             if not jugadaValida :
                 self.pausa = 1
@@ -126,7 +125,6 @@ class gui:
             self.jugadaMax = self.tablero.jugadorMax()
             self.convertirCoordenadas(0)
             self.ia_score = str(self.tablero.tablero.puntajeJugadorMax)
-            #self.tablero.tablero.displaytablero()
             self.pausa = 1
             if len(self.tablero.tablero.PosiblesJugadas) == 0:
                 condicion = self.tablero.ganador()

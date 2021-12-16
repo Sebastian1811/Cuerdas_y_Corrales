@@ -11,7 +11,6 @@ class juego:
         self.tablero = Tablero(filas, columnas)
 
     def jugadorMax(self):
-        
         tableroCopia = deepcopy(self.tablero)
         PosiblesJugadas = deepcopy(self.tablero.PosiblesJugadas)
 
@@ -42,6 +41,7 @@ class juego:
             PosiblesJugadas.appendleft(jugada)
 
             heuristica = self.funcionHeuristica(tableroActualCopia)
+
             if min_max :
                 if heuristica >= tableroActualCopia.valorMin:
                     return (heuristica, jugada)
@@ -52,10 +52,8 @@ class juego:
                     return (heuristica, jugada)
                 else:
                     tableroActualCopia.beta = min(tableroActualCopia.valorMin, heuristica)
-
             
             proximoMovimiento = self.minimax(tableroActualCopia, PosiblesJugadasCopy, profundidadarbol - 1, not min_max)
-
             
             if min_max :
                 
@@ -72,13 +70,9 @@ class juego:
         return heuristica
 
     def ganador(self):
-        #self.tablero.displaytablero()
         if self.tablero.puntajeJugadorMin > self.tablero.puntajeJugadorMax:
-            #print("gana Jugador Min")
             return 0
         elif self.tablero.puntajeJugadorMin < self.tablero.puntajeJugadorMax:
-            #print("gana Jugador Max")
             return 1
         else:
-            #print("Empate!")
             return -1
