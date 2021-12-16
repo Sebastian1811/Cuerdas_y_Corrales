@@ -2,7 +2,7 @@ import sys, pygame
 from juego import *
 class gui:
     pygame.init()
-    size = width, height = 1000, 678
+    size = width, height = 1000, 730
     white = 255, 255, 255
     red = 255, 0 , 0
     input_box = pygame.Rect(840, 380, 140, 32)
@@ -88,7 +88,7 @@ class gui:
                 x += 96
             x = 0    
             y +=96
-         
+
     def setScore(self):
         count = 0
         for i in range(7):
@@ -248,4 +248,18 @@ class gui:
             self.screen.blit(self.robot,(880,100))
             self.jugar()
             pygame.display.flip()
+    RejillaF=40
+    for a in range(0,4):
+                print(RejillaF)
+                numero1 = Fuente.render(str(a),True,(255,200,200))
+                screen.blit(numero1,(RejillaF,680))
+                RejillaF=RejillaF+188
+    
+    RejillaC=35
+    for a in range(0,4):
+                print(RejillaC)
+                numero1 = Fuente.render(str(a),True,(255,200,200))
+                screen.blit(numero1,(680,RejillaC))
+                RejillaC=RejillaC+188
+                
             
