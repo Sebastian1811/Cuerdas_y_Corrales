@@ -102,7 +102,7 @@ class gui:
                     count +=1           
     def jugar(self):
         if self.iniciar and  not self.pausa:
-            self.tablero.tablero.displaytablero()
+            #self.tablero.tablero.displaytablero()
             jugadaValida = jugadorMin.jugar(self.tablero.tablero,self.userText)
             if not jugadaValida :
                 self.pausa = 1
@@ -119,9 +119,20 @@ class gui:
             self.jugadaMax = self.tablero.jugadorMax()
             self.convertirCoordenadas(0)
             self.ia_score = str(self.tablero.tablero.puntajeJugadorMax)
-            self.tablero.tablero.displaytablero()
+            #self.tablero.tablero.displaytablero()
             self.pausa = 1
-            
+            if len(self.tablero.tablero.PosiblesJugadas) == 0:
+                condicion = self.tablero.ganador()
+                if condicion == 1:
+                    msj = self.font.render("GANA MORTY!!!!",0,(0,255,0))
+                    self.screen.blit(msj,(780,550))
+                elif  condicion == 0:   
+                    msj = self.font.render("GANA ROBOT MANTEQUILLA!!!!",0,(0,255,0))
+                    self.screen.blit(msj,(700,550)) 
+                elif condicion == -1:
+                    msj = self.font.render("EMPATE!!!!",0,(0,255,0))
+                    self.screen.blit(msj,(780,550))    
+
     def convertirCoordenadas(self,player):
         convertY2 = 0
         convertX2 = 0
@@ -229,8 +240,10 @@ class gui:
             text_surface = self.font.render(self.userText, True, (255,255,255))
             scoreIa = self.font.render("Score: "+self.ia_score,0,(255,0,0))
             scoremorty = self.font.render("Score: "+self.morty_score,0,(0,0,255))
+            jugada = self.font.render("Jugada: ",0,(0,0,255))
+            self.screen.blit(jugada,(770,390))
             self.screen.blit(scoreIa,(780,140))
-            self.screen.blit(scoremorty,(780,290))
+            self.screen.blit(scoremorty,(780,285))
             instrucciones = self.font.render("Ejemplo de jugada == x y x2 y2",0,self.coloron)
             self.screen.blit(instrucciones,(720, 40))
             self.screen.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))

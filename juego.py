@@ -10,25 +10,6 @@ class juego:
         self.profundidadarbol = profundidadArbol
         self.tablero = Tablero(filas, columnas)
 
-    def jugar(self):
-        
-        print("Cuerdas y corrales")
-        while len(self.tablero.PosiblesJugadas) > 0:
-            print("Ejemplo de jugada == x,y,x2,y2")
-            print("presiona 0 para terminar el juego")
-
-            self.tablero.displaytablero()
-
-            jugadaValida = jugadorMin.jugar(self.tablero)
-            if not jugadaValida :
-                break
-            else:
-                self.jugadamin = jugadaValida
-
-            print("\nEspera a jugador MAX \n")
-            self.jugadamax = self.jugadorMax()
-        self.ganador()
-
     def jugadorMax(self):
         
         tableroCopia = deepcopy(self.tablero)
@@ -91,14 +72,13 @@ class juego:
         return heuristica
 
     def ganador(self):
-        
-        self.tablero.displaytablero()
+        #self.tablero.displaytablero()
         if self.tablero.puntajeJugadorMin > self.tablero.puntajeJugadorMax:
-            print("gana Jugador Min")
+            #print("gana Jugador Min")
+            return 0
         elif self.tablero.puntajeJugadorMin < self.tablero.puntajeJugadorMax:
-            print("gana Jugador Max")
+            #print("gana Jugador Max")
+            return 1
         else:
-            print("Empate!")
-        print("JugadorMinPuntaje: %s" % self.tablero.puntajeJugadorMin)
-        print("JugadorMaxPuntaje: %s" % self.tablero.puntajeJugadorMax)
-        print("\nFin del juego")
+            #print("Empate!")
+            return -1
