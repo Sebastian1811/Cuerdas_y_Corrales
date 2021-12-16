@@ -1,9 +1,5 @@
 import sys, pygame
 from juego import *
-
-
-
-
 class gui:
     pygame.init()
     size = width, height = 1000, 678
