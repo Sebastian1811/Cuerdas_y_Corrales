@@ -115,7 +115,7 @@ class gui:
                 self.pausa = 1
                 self.detenido = 1
                 self.warning = self.fuente.render("¡¡¡JUGADA INVALIDA!!!",0,(255,0,0))
-                self.screen.blit(self.warning,(700, 440))
+                self.screen.blit(self.warning,(780, 440))
                 return 0
             else:
                 self.screen.fill((0,0,0))
@@ -130,10 +130,10 @@ class gui:
             self.pausa = 1
             if len(self.tablero.tablero.PosiblesJugadas) == 0:
                 condicion = self.tablero.ganador()
-                if condicion == 1:
+                if condicion == 0:
                     msj = self.font.render("GANA MORTY!!!!",0,(0,255,0))
                     self.screen.blit(msj,(780,550))
-                elif  condicion == 0:   
+                elif  condicion == 1:   
                     msj = self.font.render("GANA ROBOT MANTEQUILLA!!!!",0,(0,255,0))
                     self.screen.blit(msj,(750,550)) 
                 elif condicion == -1:
