@@ -88,6 +88,17 @@ class gui:
                 x += 96
             x = 0    
             y +=96
+        RejillaF=40
+        for a in range(0,4):
+            numero1 = self.Fuente.render(str(a),True,(255,200,200))
+            self.screen.blit(numero1,(RejillaF,680))
+            RejillaF=RejillaF+188
+    
+        RejillaC=35
+        for a in range(0,4):
+            numero1 = self.Fuente.render(str(a),True,(255,200,200))
+            self.screen.blit(numero1,(680,RejillaC))
+            RejillaC=RejillaC+188
 
     def setScore(self):
         count = 0
