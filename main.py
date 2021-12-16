@@ -1,7 +1,7 @@
-from juego import *
+from gui import *
 
-
-game = juego(3, 3, 10)
+gui = gui()
 
 if __name__ == '__main__':
-    game.jugar()
+    gui.setTablero(3,3)
+    gui.interfaz()
