@@ -249,7 +249,3 @@ class gui:
             self.jugar()
             pygame.display.flip()
             
-if __name__ == '__main__':            
-    gu = gui()
-    gu.setTablero(3,3)
-    gu.interfaz()
