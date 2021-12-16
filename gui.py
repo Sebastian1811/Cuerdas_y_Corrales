@@ -2,10 +2,10 @@ import sys, pygame
 from juego import *
 class gui:
     pygame.init()
-    size = width, height = 1000, 730
+    size = width, height = 1100, 730
     white = 255, 255, 255
     red = 255, 0 , 0
-    input_box = pygame.Rect(840, 380, 140, 32)
+    input_box = pygame.Rect(930, 380, 140, 32)
     coloron =pygame.Color('lightskyblue3')
     coloroff = pygame.Color('gray15')
     color = coloroff
@@ -69,7 +69,7 @@ class gui:
                 elif self.gameMatrix[i][j] <= 5 and self.gameMatrix[i][j] >=1:
                     numero = self.Fuente.render(str(self.gameMatrix[j][i]),True,(255,200,200)) 
                     pygame.draw.rect(self.screen,self.red,[y,x,95,95])  
-                    self.screen.blit(numero,[y1,x1])
+                    self.screen.blit(numero,[y1+30,x1+30])
                     count += 1
                     x1 = 96*factor
                     if factor < 5:
@@ -124,7 +124,7 @@ class gui:
                     self.screen.blit(msj,(780,550))
                 elif  condicion == 0:   
                     msj = self.font.render("GANA ROBOT MANTEQUILLA!!!!",0,(0,255,0))
-                    self.screen.blit(msj,(700,550)) 
+                    self.screen.blit(msj,(750,550)) 
                 elif condicion == -1:
                     msj = self.font.render("EMPATE!!!!",0,(0,255,0))
                     self.screen.blit(msj,(780,550))    
@@ -237,27 +237,26 @@ class gui:
             scoreIa = self.font.render("Score: "+self.ia_score,0,(255,0,0))
             scoremorty = self.font.render("Score: "+self.morty_score,0,(0,0,255))
             jugada = self.font.render("Jugada: ",0,(0,0,255))
-            self.screen.blit(jugada,(770,390))
-            self.screen.blit(scoreIa,(780,140))
-            self.screen.blit(scoremorty,(780,285))
+            self.screen.blit(jugada,(850,390))
+            self.screen.blit(scoreIa,(850,140))
+            self.screen.blit(scoremorty,(850,285))
             instrucciones = self.font.render("Ejemplo de jugada == x y x2 y2",0,self.coloron)
-            self.screen.blit(instrucciones,(720, 40))
+            self.screen.blit(instrucciones,(830, 40))
             self.screen.blit(text_surface, (self.input_box.x + 5, self.input_box.y + 5))
             self.input_box.w = max(100,text_surface.get_width()+ 10)
-            self.screen.blit(self.morty,(880,250))
-            self.screen.blit(self.robot,(880,100))
+            self.screen.blit(self.morty,(950,250))
+            self.screen.blit(self.robot,(950,100))
             self.jugar()
             pygame.display.flip()
+
     RejillaF=40
     for a in range(0,4):
-                print(RejillaF)
                 numero1 = Fuente.render(str(a),True,(255,200,200))
                 screen.blit(numero1,(RejillaF,680))
                 RejillaF=RejillaF+188
     
     RejillaC=35
     for a in range(0,4):
-                print(RejillaC)
                 numero1 = Fuente.render(str(a),True,(255,200,200))
                 screen.blit(numero1,(680,RejillaC))
                 RejillaC=RejillaC+188
